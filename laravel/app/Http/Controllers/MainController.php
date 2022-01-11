@@ -2,44 +2,39 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ContactModel;
+use App\Contact;
 use Illuminate\Http\Request;
 
-class MainController extends Controller
-{
+class MainController extends Controller {
+
     public function home() {
-      return view('home');
+        return view('home');
     }
 
     public function about() {
-      return view('about');
-    }
-
-    public function email() {
-      return view('email');
+        return view('about');
     }
 
     public function review() {
-      $reviews = new ContactModel();
-      //dd($reviews->all());
-      return view('review', ['data' => $reviews->all()]);
+        $reviews = new Contact();
+        return view('review', ['reviews' => $reviews->all()]);
     }
 
     public function review_check(Request $request) {
-      
-      $valid = $request->validate([
-        'email' => 'required|min:4|max:100',
-        'heading' => 'required|max:100',
-        'message' => 'required|min:15|max:500'
-      ]);
+        $valid = $request->validate([
+            'email' => 'required|min:4|max:100',
+            'subject' => 'required|min:4|max:100',
+            'message' => 'required|min:15|max:500'
+        ]);
 
-      $review =  new ContactModel();
-      $review->email = $request->input('email');
-      $review->heading = $request->input('heading');
-      $review->message = $request->input('message');
+        $review = new Contact();
+        $review->email = $request->input('email');
+        $review->subject = $request->input('subject');
+        $review->message = $request->input('message');
 
-      $review->save();
+        $review->save();
 
-      return redirect()->route('review');
+        return redirect()->route('review');
     }
+
 }

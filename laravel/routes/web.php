@@ -13,19 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'App\Http\Controllers\MainController@home');
+Route::get('/', 'MainController@home');
 
-Route::get('/about', 'App\Http\Controllers\MainController@about');
+Route::get('/about', 'MainController@about');
 
-Route::get('/review', 'App\Http\Controllers\MainController@review')->name('review');
-Route::post('/review/check', 'App\Http\Controllers\MainController@review_check');
+Route::get('/review', 'MainController@review')->name('review');
+Route::post('/review/check', 'MainController@review_check');
 
-Route::get('/email', 'App\Http\Controllers\MainController@email');
-
-Route::get('/user/{id}/{name}', function ($id, $name) {
-    return 'ID: '. $id. '. Name: '.$name;
-});
-
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+//Route::get('/user/{id}/{name}', function ($id, $name) {
+//    return 'ID: '. $id.'. Name: '.$name;
+//});
